@@ -55,32 +55,51 @@ var manyColors = [["#ecd078","#d95b43","#c02942","#542437","#53777a"],["#69d2e7"
 
 // ?disable_artwork=true <- Query param if you ever hit an endless seed.
 
-var paintSize = (canvasWidth / 1600) + (Math.random() > 0.6 ? (Math.random() * Math.random() * Math.random() * (canvasWidth / 10) * Math.random() * Math.random()) : 0);
+var paintSize;
 
-var noiseOffsetX = canvasWidth * Math.random() * 4;
-var noiseOffsetY = canvasHeight * Math.random() * 4;
+var noiseOffsetX;
+var noiseOffsetY;
 
-var noiseOffsetX2 = canvasWidth * Math.random() * 4;
-var noiseOffsetY2 = canvasHeight * Math.random() * 4;
+var noiseOffsetX2;
+var noiseOffsetY2;
 
-var dotMove = canvasWidth / (Math.random() * 20);
-var moveThresh = Math.random() * Math.random();
-var noiseScale = 0.002 + Math.random() * 0.02;
-var xMult = Math.random() > 0.5
-  ? (
-    Math.random() > 0.5 ? -1 : 1
-    * Math.random() * 10 * Math.random() * Math.random() * Math.random()
-  )
-  : 1;
-var yMult = Math.random() > 0.5
-  ? (
-    Math.random() > 0.5 ? -1 : 1
-    * Math.random() * 10 * Math.random() * Math.random() * Math.random()
-  )
-  : 1;
+var dotMove;
+var moveThresh;
+var noiseScale;
+var xMult;
+var yMult;
   
-var showConnect = Math.random() > 0.9;
-var connectShowChance = Math.random() > 0.5 ? 1 : Math.random();
+var showConnect;
+var connectShowChance;
+
+function setDefaults() {
+  paintSize = (canvasWidth / 1600) + (Math.random() > 0.6 ? (Math.random() * Math.random() * Math.random() * (canvasWidth / 10) * Math.random() * Math.random()) : 0);
+
+  noiseOffsetX = canvasWidth * Math.random() * 4;
+  noiseOffsetY = canvasHeight * Math.random() * 4;
+
+  noiseOffsetX2 = canvasWidth * Math.random() * 4;
+  noiseOffsetY2 = canvasHeight * Math.random() * 4;
+
+  dotMove = canvasWidth / (Math.random() * 20);
+  moveThresh = Math.random() * Math.random();
+  noiseScale = 0.002 + Math.random() * 0.02;
+  xMult = Math.random() > 0.5
+    ? (
+      Math.random() > 0.5 ? -1 : 1
+      * Math.random() * 10 * Math.random() * Math.random() * Math.random()
+    )
+    : 1;
+  yMult = Math.random() > 0.5
+    ? (
+      Math.random() > 0.5 ? -1 : 1
+      * Math.random() * 10 * Math.random() * Math.random() * Math.random()
+    )
+    : 1;
+    
+  showConnect = Math.random() > 0.9;
+  connectShowChance = Math.random() > 0.5 ? 1 : Math.random();
+}
 
 function moveDot(x, y, size, paintColor) {
   var dx = x;
@@ -153,8 +172,8 @@ function sundrop() {
     
   var padding = (1 / (3 + (Math.random() * Math.random() * Math.random() * Math.random() * 16)));
   
-  var width = canvasWidth / columns;
-  var height = canvasHeight / rows;
+  var width = Math.min(canvasWidth, canvasHeight) / columns;
+  var height = Math.min(canvasWidth, canvasHeight) / rows;
 
   var diameter = width * (1 - (padding * 2));
   var radius = diameter / 2;
