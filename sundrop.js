@@ -5,7 +5,7 @@
 // Please reference or message me if you intend to use this for something other than inspiration/learning.
 // I hope you enjoy it.
 
-// Artsable workspace: https://artsable.com/workspace/5de82cbc9ef5ad001fcdd8f9
+// Artsable workspace: https://artsable.com/workspace/600429ee29c39a001f223d84
 
 function getUrlVars() {
   var vars = {};
@@ -268,3 +268,35 @@ function setup() {
   }
 }
 
+
+window.onpopstate = function(event) {
+  seed = event.state.seed;
+  Math.seedrandom(String(seed));
+  var newPageTitle = 'Sundrop - ' + seed;
+  document.title = newPageTitle;
+  unearthing();
+}
+
+var wasDoubleTouch = false;
+
+function touchEnded() {
+  if (wasDoubleTouch) {
+    return;
+  }
+
+  seed = Math.floor(Math.random() * 10000000);
+  Math.seedrandom(String(seed));
+
+
+  var newPageTitle = 'Sundrop - ' + seed;
+  document.title = newPageTitle;
+  history.pushState({
+  seed: seed
+  }, newPageTitle, '?seed=' + seed);
+
+  sundrop();
+}
+
+function touchStarted() {
+  wasDoubleTouch = touches.length > 1;
+}
