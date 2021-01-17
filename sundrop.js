@@ -179,6 +179,14 @@ function sundrop() {
   var width = Math.min(canvasWidth, canvasHeight) / columns;
   var height = Math.min(canvasWidth, canvasHeight) / rows;
 
+  push();
+  if (canvasWidth > canvasHeight) {
+    translate((canvasWidth - canvasHeight) / 2, 0);
+  } else if (canvasHeight > canvasWidth) {
+    translate(0, (canvasHeight - canvasWidth) / 2);
+  }
+  
+
   var diameter = width * (1 - (padding * 2));
   var radius = diameter / 2;
 
@@ -193,6 +201,8 @@ function sundrop() {
   
   if (Math.random() > 0.2) {
     background(palette[Math.floor(Math.random() * palette.length)]);
+  } else {
+    background('white');
   }
 
   noStroke();
@@ -261,6 +271,7 @@ function sundrop() {
       });
     }
   }
+  pop();
 }
 
 function setup() {
