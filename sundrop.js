@@ -72,6 +72,8 @@ var yMult;
 var showConnect;
 var connectShowChance;
 
+var dotMult;
+
 function setDefaults() {
   paintSize = (canvasWidth / 1600) + (Math.random() > 0.6 ? (Math.random() * Math.random() * Math.random() * (canvasWidth / 10) * Math.random() * Math.random()) : 0);
 
@@ -99,6 +101,8 @@ function setDefaults() {
     
   showConnect = Math.random() > 0.9;
   connectShowChance = Math.random() > 0.5 ? 1 : Math.random();
+  
+  dotMult = 1 + (Math.random() * Math.random() * Math.random() * Math.random() * 10);
 }
 
 function moveDot(x, y, size, paintColor) {
@@ -147,9 +151,9 @@ function paintInner({
   }
 }
 
-var dotMult = 1 + (Math.random() * Math.random() * Math.random() * Math.random() * 10);
-
 function sundrop() {
+  setDefaults();
+
   document.getElementById('seed').innerHTML = 'seed: ' + seed;
 
   // Try tweaking these numbers below and see what happens when you click save!
